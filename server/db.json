@@ -23,6 +23,18 @@
       "text": "Learn Java in 2 Weks.",
       "state": "not-started",
       "id": 4
+    },
+    {
+      "title": "Read Angular 1 blog",
+      "text": "Shall do at 10.30 pm",
+      "state": "not-started",
+      "id": 5
+    },
+    {
+      "title": "Read Angular 1 blog",
+      "text": "Shall do at 10.30 pm",
+      "state": "not-started",
+      "id": 6
     }
   ]
 }

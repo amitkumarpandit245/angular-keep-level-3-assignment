@@ -1,5 +1,6 @@
-.keep-c-list-container{
+.keep-c-list-container {
     display: flex;
-    flex-direction: column;    
-    margin:5vh auto;
+    flex-direction: column;
+    width: 30%;
+    margin: 2em;
 }
