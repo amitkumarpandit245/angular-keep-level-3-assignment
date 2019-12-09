@@ -3,8 +3,8 @@
     {
       "id": 1,
       "title": "Read Angular5 blog",
-      "text": "Shall do at 6 pm",
-      "state": "not-started"
+      "text": "Shall do at 9 pm",
+      "state": "completed"
     },
     {
       "id": 2,
@@ -17,6 +17,12 @@
       "text": "Mark Twain",
       "id": 3,
       "state": "completed"
+    },
+    {
+      "title": "Java ",
+      "text": "Learn Java in 2 Weks.",
+      "state": "not-started",
+      "id": 4
     }
   ]
 }

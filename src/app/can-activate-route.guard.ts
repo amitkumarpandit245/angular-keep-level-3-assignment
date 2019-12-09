@@ -7,34 +7,18 @@ import { RouterService } from './services/router.service';
 @Injectable()
 export class CanActivateRouteGuard implements CanActivate {
 
-  constructor(private authservice: AuthenticationService, private routerservice: RouterService) { }
-
+  constructor(private authService: AuthenticationService, private router: RouterService) { }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    const bearerToken = localStorage.getItem('bearerToken');
-
-    console.log(bearerToken);
-
-    if (bearerToken != null) {
-      const authStatus = this.authservice.isUserAuthenticated(bearerToken).then(
-        (data) => {
-          return data;
-        },
-        err => {
-          console.log(err);
-        });
-
-      authStatus.then(result => {
-        console.log(result);
-      });
-
-      if (authStatus) {
+    const promise = this.authService.isUserAuthenticated(this.authService.getBearerToken());
+    return promise.then(res => {
+      if (res) {
         return true;
+      } else {
+        this.router.routeToLogin();
+        return false;
       }
-    }else {
-      this.routerservice.routeToLogin();
-      return false;
-    }
+    });
   }
 }

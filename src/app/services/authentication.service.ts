@@ -1,31 +1,32 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import 'rxjs/add/operator/map';
+
 @Injectable()
 export class AuthenticationService {
-  private authUrl: string;
-  constructor(private httpclient: HttpClient) {
-    this.authUrl = 'http://localhost:3000/auth/v1/';
+
+  private authURL: string;
+  constructor(private httpClient: HttpClient) {
+    this.authURL = 'http://localhost:3000/auth/v1/';
+  }
+  authenticateUser(user: any) {
+    return this.httpClient.post(this.authURL, user);
   }
 
-  authenticateUser(data) {
-    return this.httpclient.post(this.authUrl, data);
+  setBearerToken(token: string) {
+    localStorage.setItem('bearer token', token);
   }
-
-  setBearerToken(token) {
-    localStorage.setItem('bearerToken', token);
-  }
-
   getBearerToken() {
-    return localStorage.getItem('bearerToken');
+    return localStorage.getItem('bearer token');
   }
 
-  isUserAuthenticated(token): Promise<boolean> {
-    return this.httpclient.post(`${this.authUrl}isAuthenticated`, {}, {
-      headers: new HttpHeaders().set('Authorization', `Bearer ${token}`)
-    }).pipe(
-      map((res) => res['isAuthenticated']))
-      .toPromise();
+  isUserAuthenticated(token: string): Promise<boolean> {
+    return this.httpClient.post<boolean>(`${this.authURL}isAuthenticated`, {}, {
+      headers: new HttpHeaders().set('Authorization', `Bearer ${this.getBearerToken()}`)
+    }).map((res) => {
+      return res['isAuthenticated'];
+    })
+    .toPromise();
   }
-
 }
+
